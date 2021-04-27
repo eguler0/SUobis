@@ -1,8 +1,8 @@
 import 'dart:async';
 
-// import 'package:main.dart';
+
 import 'package:flutter/material.dart';
-import 'main.dart';
+import '../main.dart';
 
 
 class girisEkrani extends StatefulWidget {

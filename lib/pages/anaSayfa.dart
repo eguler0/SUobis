@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:okul_giris/main.dart';
-import 'myWidgets/elevatedButton.dart';
+import '../main.dart';
+import '../myWidgets/elevatedButton.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'myWidgets/slide_image.dart';
+import '../myWidgets/slide_image.dart';
 
 
 class newPage extends StatefulWidget {

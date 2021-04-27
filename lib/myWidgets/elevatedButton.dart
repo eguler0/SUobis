@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:okul_giris/anaSayfa.dart';
-import 'package:okul_giris/genelNotDurumu.dart';
-import 'package:okul_giris/notlar.dart';
-import 'package:okul_giris/onayTakip.dart';
-import 'package:okul_giris/duyurular.dart';
-import 'package:okul_giris/sinav_tarihleri.dart';
-import 'package:okul_giris/ykkKararlari.dart';
-import '../harc_durumu.dart';
+import '../pages/anaSayfa.dart';
+import '../pages/genelNotDurumu.dart';
+import '../pages/notlar.dart';
+import '../pages/onayTakip.dart';
+import '../pages/duyurular.dart';
+import '../pages/sinav_tarihleri.dart';
+import '../pages/ykkKararlari.dart';
+import '../pages/harc_durumu.dart';
 
 class ElevatedButton1 extends StatefulWidget {
   String metin = "";

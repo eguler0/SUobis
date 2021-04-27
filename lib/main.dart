@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:okul_giris/giris_ekran.dart';
-import 'hakkinda.dart';
-import 'sifremi_unuttum.dart';
-import 'package:okul_giris/anaSayfa.dart';
-import 'package:okul_giris/hakkinda.dart';
+import 'pages/giris_ekran.dart';
+import 'pages/hakkinda.dart';
+import 'pages/sifremi_unuttum.dart';
+import 'pages/anaSayfa.dart';
+import 'pages/hakkinda.dart';
 
 void main() => runApp(MyApp());
 
