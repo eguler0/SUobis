@@ -2,7 +2,9 @@ import 'dart:async';
 
 
 import 'package:flutter/material.dart';
+import 'package:okul_giris/tum_girisler.dart';
 import '../main.dart';
+import '../ogr_giris_ekrani.dart';
 
 
 class girisEkrani extends StatefulWidget {
@@ -14,10 +16,10 @@ class _girisEkraniState extends State<girisEkrani> {
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 7), () {
+    Timer(Duration(seconds: 1), () {
       Navigator.of(context)
           .pushReplacement(
-          MaterialPageRoute(builder: (context) => MyHomePage()));
+          MaterialPageRoute(builder: (context) =>TumGirisler()));
     });
   }
 
