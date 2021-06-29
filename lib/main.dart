@@ -1,172 +1,64 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'pages/giris_ekran.dart';
-import 'pages/hakkinda.dart';
-import 'pages/sifremi_unuttum.dart';
-import 'pages/anaSayfa.dart';
-import 'pages/hakkinda.dart';
+import 'package:okul_giris/pages/drawer_pages/giris_ekran.dart';
+import 'package:okul_giris/pages/tum_girisler.dart';
+import 'pages/ogr_giris_ekrani.dart';
 
-void main() => runApp(MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: '/',
-      routes: {
-        '/': (context) => girisEkrani(),
-        '/newpage': (context) => newPage(),
-      },
       debugShowCheckedModeBanner: false,
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: App(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  TextEditingController kadiCont = TextEditingController();
-  TextEditingController sifreCont = TextEditingController();
-
+class App extends StatefulWidget {
+  // Create the initialization Future outside of `build`:
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _AppState createState() => _AppState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  String kadi = "";
-  String sifre = "";
-  bool durum = false;
-
-
+class _AppState extends State<App> {
+  /// The future is part of the state of our widget. We should not call `initializeApp`
+  /// directly inside [build].
+  // final Future<FirebaseApp> _initialization = Firebase.initializeApp();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Center(
-          child: Text("SELÇUK OBİS Comput.Eng"),
-        ),
-      ),
-      body: IntrinsicHeight(
-        child: Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Expanded(
-                child: Container(
-                  margin: EdgeInsets.all(20),
-                  padding: EdgeInsets.all(2.0),
-                  alignment: Alignment.topCenter,
-                  child: FittedBox(
-                      fit: BoxFit.fill,
+    return FutureBuilder(
+      // Initialize FlutterFire:
+      // future: _initialization,
+      builder: (context, snapshot) {
+        // Check for errors
+        if (snapshot.hasError) {
+          return Scaffold(
+            body: Center(child: Text("Hata çıktı"+ snapshot.error.toString()),),
+          );
+        }
 
-                      //
-                      child: CircleAvatar(
-                        minRadius: 100,
-                        backgroundColor: Colors.white,
-                        backgroundImage: AssetImage("assets/e.png")
-                      )),
-                ),
-              ),
-              Container(
-                child: TextField(
-                  controller: widget.kadiCont,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: "Ogrenci Numarası",
-                  ),
-                  cursorColor: Colors.red,
-                  maxLength: 9,
-                  maxLines: 1,
-                ),
-                margin: EdgeInsets.only(bottom: 20, top: 40),
-              ),
-              Container(
-                child: TextField(
-                  controller: widget.sifreCont,
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: "Sifre",
-                  ),
-                  //scrollPadding: EdgeInsets.only(bottom: 20),
-                  cursorColor: Colors.red,
-                  maxLength: 11,
-                  maxLines: 1,
-                ),
-              ),
-               SizedBox(
-                 width: MediaQuery.of(context).size.width,
-                 height: 40,
+        // Once complete, show your application
+        if (snapshot.connectionState == ConnectionState.done) {
+          debugPrint("Baglandi");
+          return girisEkrani();
+        }
 
-                 child: RaisedButton(
+        // Otherwise, show something whilst waiting for initialization to complete
 
-                   onPressed:giris,
-                   disabledColor: Colors.grey,
-                   color: Colors.orange,
-                   child: Text("Giriş Yap"),
-                   elevation: 50,
-                 ),
-               ),
-              //_submitButton(),
-
-
-              Container(
-                child: Row(
-
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
-                  children: [
-                    Container(
-                        padding: EdgeInsets.only(right: 20),
-                        alignment: Alignment.topLeft,
-                        //color: Colors.pink,
-                        child: Row(
-                          children: [
-                            FlatButton(
-
-                                color: Color.fromRGBO(29, 53, 87, 1),
-                                textColor: Colors.orange,
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(70)),
-                                onPressed: () {
-                                  null;
-                                  // Navigator.push(
-                                  //   context,
-                                  //   MaterialPageRoute(
-                                  //       builder: (context) => sifremiUnuttum()),
-                                  // );
-                                },
-                                child: Text("Şifremi unuttum")),
-                          ],
-                        )),
-
-                    FlatButton(
-                      onPressed: () {
-                        Navigator.push(context,MaterialPageRoute(builder: (context)=>HakkindaMetni()));
-                      },
-                      child: Row(
-                        children: [
-                          Text("Hakkında",style: TextStyle(color: Colors.orange),),
-                          Icon(Icons.info_sharp,color: Colors.white,)
-                        ],
-                      ),
-                      color: Color.fromRGBO(29, 53, 87, 1),
-                      shape:
-                          RoundedRectangleBorder(borderRadius:BorderRadius.circular(70)),
-                    ),
-                  ],
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
+        return girisEkrani();
+        debugPrint("baglanıyor");
+      },
     );
-  }
-
-  void giris() {
-    if (widget.kadiCont.text == "193301061" &&
-        widget.sifreCont.text == "1234") {
-      Navigator.pushNamed(context, '/newpage');
-      durum = true;
-    }
   }
 }

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:okul_giris/service/service_ogrenci.dart';
-import 'onayTakip.dart';
+import '../drawer_pages/onayTakip.dart';
 
 class SonYilNotlari extends StatefulWidget {
  String sifre;

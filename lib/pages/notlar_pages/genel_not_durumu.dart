@@ -9,17 +9,16 @@ import 'package:horizontal_data_table/horizontal_data_table.dart';
 import 'package:okul_giris/service/service_ogrenci.dart';
 import '../drawer_pages/onayTakip.dart';
 
-class Donem_Notlari extends StatefulWidget {
+class Notlar extends StatefulWidget {
   String kadi;
   String sifre;
-  Donem_Notlari({this.kadi, this.sifre});
+   Notlar({Key key, this.kadi, this.sifre}) : super(key: key);
 
   @override
-  _Donem_NotlariState createState() => _Donem_NotlariState();
+  _NotlarState createState() => _NotlarState();
 }
 
-class _Donem_NotlariState extends State<Donem_Notlari> {
-
+class _NotlarState extends State<Notlar> {
   HDTRefreshController _hdtRefreshController = HDTRefreshController();
 
   static const int sortName = 0;
@@ -29,11 +28,9 @@ class _Donem_NotlariState extends State<Donem_Notlari> {
   VeriTabani vt=new VeriTabani();
   @override
   void initState() {
-    debugPrint(widget.kadi+" "+widget.sifre);
     // user.initData(100);
     super.initState();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +42,7 @@ class _Donem_NotlariState extends State<Donem_Notlari> {
                 bottomLeft: Radius.circular(10),
                 bottomRight: Radius.circular(10))),
         title: Text(
-          "Genel Not Durumu",
+          "Not Durumu",
           style: GoogleFonts.robotoSlab(
             color: Colors.white,
           ),
@@ -71,11 +68,9 @@ class _Donem_NotlariState extends State<Donem_Notlari> {
                 //print('project snapshot data is: ${projectSnap.data}');
                 return Container();
               }
-              return vt.adi!=null?ListView.builder(itemCount:1,itemBuilder: (context,index){
-                return Container(
-                  child: _getBodyWidget(index),
-                );
-              }):Center(child: CircularProgressIndicator(),);
+              return vt.adi!=null?
+               _getBodyWidget()
+              :Center(child: CircularProgressIndicator(),);
 
 
 
@@ -87,61 +82,44 @@ class _Donem_NotlariState extends State<Donem_Notlari> {
       ),
     );
   }
-  Widget _getBodyWidget(int index) {
-    return Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Flexible(
-            child: HorizontalDataTable(
-              leftHandSideColumnWidth: 100,
-              rightHandSideColumnWidth: 600,
-              isFixedHeader: true,
-              headerWidgets: _getTitleWidget(),
-              leftSideItemBuilder: _generateFirstColumnRow,
-              rightSideItemBuilder: _generateRightHandSideColumnRow,
-              itemCount: vt.g_DB_uzunluk,
-              rowSeparatorWidget: const Divider(
-                color: Colors.black54,
-                height: 1.0,
-                thickness: 0.0,
-              ),
-              leftHandSideColBackgroundColor: Color(0xFFFFFFFF),
-              rightHandSideColBackgroundColor: Color(0xFFFFFFFF),
-              verticalScrollbarStyle: const ScrollbarStyle(
-                thumbColor: Colors.yellow,
-                isAlwaysShown: true,
-                thickness: 4.0,
-                radius: Radius.circular(5.0),
-              ),
-              horizontalScrollbarStyle: const ScrollbarStyle(
-                thumbColor: Colors.red,
-                isAlwaysShown: true,
-                thickness: 4.0,
-                radius: Radius.circular(5.0),
-              ),
-              enablePullToRefresh: true,
-              refreshIndicator: const WaterDropHeader(),
-              refreshIndicatorHeight: 60,
-              onRefresh: () async {
-                //Do sth
-                await Future.delayed(const Duration(milliseconds: 500));
-                _hdtRefreshController.refreshCompleted();
-              },
-              htdRefreshController: _hdtRefreshController,
-            ),
-          ),
-          Flexible(child: Container(
-            color: Colors.limeAccent,
-            padding: EdgeInsets.all(8),
-            margin: EdgeInsets.only(),
-            child: Text(vt.yil_sonu_akad_notlari.elementAt(index)["yil"]+" BAHAR YARI YILI:"+vt.yil_sonu_akad_notlari.elementAt(index)["akad_notu"]),
-          ),
-          ),
 
-        ],
+  Widget _getBodyWidget() {
+    return HorizontalDataTable(
+      leftHandSideColumnWidth: 100,
+      rightHandSideColumnWidth: 600,
+      isFixedHeader: true,
+      headerWidgets: _getTitleWidget(),
+      leftSideItemBuilder: _generateFirstColumnRow,
+      rightSideItemBuilder: _generateRightHandSideColumnRow,
+      itemCount: vt.g_DB_uzunluk,
+      rowSeparatorWidget: const Divider(
+        color: Colors.black54,
+        height: 1.0,
+        thickness: 0.0,
       ),
-      height: MediaQuery.of(context).size.height,
+      leftHandSideColBackgroundColor: Color(0xFFFFFFFF),
+      rightHandSideColBackgroundColor: Color(0xFFFFFFFF),
+      verticalScrollbarStyle: const ScrollbarStyle(
+        thumbColor: Colors.yellow,
+        isAlwaysShown: true,
+        thickness: 4.0,
+        radius: Radius.circular(5.0),
+      ),
+      horizontalScrollbarStyle: const ScrollbarStyle(
+        thumbColor: Colors.red,
+        isAlwaysShown: true,
+        thickness: 4.0,
+        radius: Radius.circular(5.0),
+      ),
+      enablePullToRefresh: true,
+      refreshIndicator: const WaterDropHeader(),
+      refreshIndicatorHeight: 60,
+      onRefresh: () async {
+        //Do sth
+        await Future.delayed(const Duration(milliseconds: 500));
+        _hdtRefreshController.refreshCompleted();
+      },
+      htdRefreshController: _hdtRefreshController,
     );
   }
 
@@ -168,7 +146,7 @@ class _Donem_NotlariState extends State<Donem_Notlari> {
         ),
         child: _getTitleItemWidget(
             'YARI YIL'
-            ,
+                ,
             120),
         onPressed: () {
 
@@ -276,5 +254,3 @@ class _Donem_NotlariState extends State<Donem_Notlari> {
     );
   }
 }
-
-

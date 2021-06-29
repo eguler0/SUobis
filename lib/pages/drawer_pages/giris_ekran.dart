@@ -2,8 +2,8 @@ import 'dart:async';
 
 
 import 'package:flutter/material.dart';
-import 'package:okul_giris/tum_girisler.dart';
-import '../main.dart';
+import 'package:okul_giris/pages/tum_girisler.dart';
+import '../../main.dart';
 import '../ogr_giris_ekrani.dart';
 
 

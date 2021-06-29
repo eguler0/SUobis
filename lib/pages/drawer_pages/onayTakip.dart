@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:okul_giris/main.dart';
 import 'package:okul_giris/service/service_ogrenci.dart';
-import 'anaSayfa.dart';
+import '../anaSayfa.dart';
 
 class OnayTakipStateless extends StatelessWidget {
   @override
@@ -35,6 +35,8 @@ class _OnayTakipState extends State<OnayTakip> {
                     //print('project snapshot data is: ${projectSnap.data}');
                     return Container();
                   }
+
+
                   return vt.onay_TakipListesi.isNotEmpty==true? SingleChildScrollView(
                     scrollDirection: Axis.vertical,
                     child: Padding(
@@ -77,11 +79,14 @@ class _OnayTakipState extends State<OnayTakip> {
                                 child: ListView.builder(
                                     itemCount: vt.ders_kodlari.length,
                                     itemBuilder: (context, index) {
+
                                       return TabloMetni(
                                           vt.onay_TakipListesi
+                                              .elementAt(index)["yil"]==null?"loading":vt.onay_TakipListesi
                                               .elementAt(index)["yil"],
-                                          vt.ders_kodlari.elementAt(index),
+                                          vt.ders_kodlari.elementAt(index)==null?"loading":vt.ders_kodlari.elementAt(index),
                                           vt.onay_TakipListesi
+                                              .elementAt(index)["onay_durumu"]==null?"loading":vt.onay_TakipListesi
                                               .elementAt(index)["onay_durumu"]);
                                     }),
                               ),

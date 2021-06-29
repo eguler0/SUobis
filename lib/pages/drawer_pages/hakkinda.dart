@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:okul_giris/model/sql_model.dart';
 import 'package:okul_giris/service/sql_service.dart';
-import '../main.dart';
+import '../../main.dart';
 import 'package:flutter/widgets.dart';
 import '../ogr_giris_ekrani.dart';
 
